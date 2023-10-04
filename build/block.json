@@ -1,0 +1,19 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "image-classify/image-classify",
+  "version": "0.1.0",
+  "title": "Image Classify",
+  "category": "media",
+  "icon": "visibility",
+  "example": {},
+  "description": "Block to classify image and allow or block upload",
+  "supports": {
+    "html": false
+  },
+  "textdomain": "image-classify",
+  "editorScript": "file:./index.js",
+  "editorStyle": "file:./index.css",
+  "style": "file:./style-index.css",
+  "viewScript": "file:./frontend.js"
+}

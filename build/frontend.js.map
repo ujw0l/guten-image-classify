@@ -1,0 +1,1 @@
+{"version":3,"file":"frontend.js","mappings":";;;;;AACAA,KAAK,CAAC,KAAK,CAAC,C","sources":["webpack://image-classify/./src/frontend.js"],"sourcesContent":["\nalert(\"aye\")"],"names":["alert"],"sourceRoot":""}
