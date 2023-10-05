@@ -48,7 +48,9 @@
 		wp_enqueue_script('ctcIcFrontendJs', CTCIC_DIR_PATH.'build/frontend.js',array());
 		wp_localize_script('ctcIcFrontendJs','ctcIcParams',array(
 			'invalidImage'=>__('This kind of images are not allowed.','image-classify'),
-			'validImage'=>__('Image is allowed to upload','image-classify'),
+			'validImage'=>__('Image allowed.','image-classify'),
+			'modelLoading'=>__('Loading ....','image-classify'),
+			'modelLoaded'=>__('Done.','image-classify'),
 			'ajaxUrl'=> admin_url( 'admin-ajax.php' ),
 		));
 
@@ -81,14 +83,7 @@
 public  function create_block_image_classify_block_init() {
 	register_block_type( __DIR__ . '/build' , 
     array('attributes' => array(
-		"allowImage"=>["type"=>'boolean',"default"=>true],
-		"labelImg1"=>["type"=>"array", "default"=>[]],
-		"labelImg2"=>["type"=>"array", "default"=>[]],
-		"labelImg3"=>["type"=>"array", "default"=>[]],
-		"labelImg4"=>["type"=>"array", "default"=>[]],
-		"labelImg5"=>["type"=>"array", "default"=>[]],
-		"createModel"=>["type"=>'boolean',"default"=>false],
-		"trainButtonDis"=>["type"=>'boolean',"default"=>true]
+		
 
 
 ),)

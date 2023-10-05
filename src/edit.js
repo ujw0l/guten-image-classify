@@ -46,10 +46,10 @@ export default function Edit({attributes,setAttributes}) {
  const fileRef = useRef('');
 	useEffect(()=>{
 		
-			resultRef.current.textContent = __('Processing...','image-classify');
+			resultRef.current.textContent = __('   Processing...','image-classify');
 
 			let rawData = [attributes.labelImg1.map(x=>x.url),attributes.labelImg2.map(x=>x.url),attributes.labelImg3.map(x=>x.url),attributes.labelImg4.map(x=>x.url),attributes.labelImg5.map(x=>x.url)] 
-			let trainData = rawData.filter(x=> x.length > 0)
+			setAttributes({ trainData: rawData.filter(x=> x.length > 0)})
 
 			/**
  * Main App Function
@@ -96,12 +96,12 @@ async function app() {
   /**
    * Train image for each train data
    */
-  trainData.map((x,i)=>x.map( async (y,z)=>{
+  attributes.trainData.map((x,i)=>x.map( async (y,z)=>{
 	  let img = new Image()    
 	  img.src =  y;
 	  img.addEventListener('load',e=> addExample(e.target,i));
-	  if(i ==trainData.length-1 && z == x.length-1){
-		resultRef.current.textContent = __("Done training model",'image-classify');
+	  if(i == attributes.trainData.length-1 && z == x.length-1){
+		resultRef.current.textContent = __("   Done training model",'image-classify');
 	  }
 	}))
   
