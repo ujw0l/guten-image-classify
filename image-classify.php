@@ -34,6 +34,7 @@
 	add_action( 'init', array($this,'create_block_image_classify_block_init') );
 	add_action( 'wp_enqueue_scripts', array($this,'enequeFrontendJs' ));
 	add_action('wp_ajax_uploadImage',array($this,'uploadImage'));
+	add_action('wp_ajax_nopriv_uploadImage', array($this ,'uploadImage'));
 
    }
 
@@ -47,8 +48,8 @@
 
 		wp_enqueue_script('ctcIcFrontendJs', CTCIC_DIR_PATH.'build/frontend.js',array());
 		wp_localize_script('ctcIcFrontendJs','ctcIcParams',array(
-			'invalidImage'=>__('This kind of images are not allowed.','image-classify'),
-			'validImage'=>__('Image allowed.','image-classify'),
+			'invalidImage'=>__('This kind of image is not allowed.','image-classify'),
+			'validImage'=>__('Image allowed to upload.','image-classify'),
 			'modelLoading'=>__('Loading ....','image-classify'),
 			'modelLoaded'=>__('Done.','image-classify'),
 			'ajaxUrl'=> admin_url( 'admin-ajax.php' ),
@@ -64,6 +65,37 @@
 
 	 public function uploadImage(){
 
+
+
+		$ext =  'jpg'== $_POST['ext'] ? 'jpeg' : $_POST['ext'];
+
+		$fileName = time().'.'.$ext;
+        $outPutFile = wp_upload_dir()['path'].'/'. $fileName;
+        $upload_file =   file_put_contents($outPutFile, base64_decode(str_replace(' ', '+',str_replace('data:image/'.$ext.';base64,', '',$_POST['blob']))));
+     
+        
+        $attachment = array(
+            'guid'           => wp_upload_dir()['url'] . '/' .  $fileName, 
+            'post_mime_type' => wp_check_filetype( basename( $fileName ), null )['type'],
+            'post_title'     =>  sanitize_file_name( pathinfo( basename( $outPutFile), PATHINFO_FILENAME ) ),
+            'post_content'   => '',
+            'post_status'    => 'inherit'
+        );
+         
+        $attach_id = wp_insert_attachment( $attachment );
+    
+    if(is_numeric($attach_id)):
+    // Make sure that this file is included, as wp_generate_attachment_metadata() depends on it.
+    require_once( ABSPATH . 'wp-admin/includes/image.php' );
+     
+    // Generate the metadata for the attachment, and update the database record.
+    $attach_data = wp_generate_attachment_metadata( $attach_id,  $outPutFile);
+    
+    wp_update_attachment_metadata( $attach_id, $attach_data );
+    echo __('Image sucessfully uploaded','wp-js-crop');
+    else:
+        echo __('Image could not be uploaded','wp-js-crop');
+    endif;
 
 		wp_die();
 	 }
