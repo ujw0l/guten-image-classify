@@ -223,7 +223,7 @@ async function app() {
 			<span style={{width:'200px',display:'inline-block'}}>
 				<MediaUploadCheck>
 					<MediaUpload
-					 title = "Select Images"
+					  title = {   0 >= attributes.labelImg5.length ? __('Select Images', 'image-classify') : __("Change Images",'image-classify')}
 					 multiple={ true}
 					 value= {attributes.labelImg5.map(x=>x.id)}
 					 gallery= {true}
