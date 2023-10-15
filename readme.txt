@@ -25,13 +25,11 @@ e.g.
 
 == Frequently Asked Questions ==
 
-= A question that someone might have =
+= What is confidence score? =
 
-An answer to that question.
+It is minimum confidence score for image to belong to one of the classes
 
-= What about foo bar? =
 
-Answer to foo bar dilemma.
 
 == Screenshots ==
 
