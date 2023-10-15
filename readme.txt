@@ -1,6 +1,6 @@
 === Image Classify ===
 Contributors:      UjW0L
-Tags:              block
+Tags:              block, deep-learning, transfer-learning, tensflowjs
 Tested up to:      6.3.1
 Stable tag:        0.1.0
 License:           GPL-2.0-or-later
