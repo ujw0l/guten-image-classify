@@ -29,18 +29,7 @@ import metadata from './block.json';
 registerBlockType(metadata.name, {
 
 	keywords:[__('Image Classify',"image-classify"),__("Deep Learning","image-classify")],
-	attributes:{
-		allowImage:{type:'boolean',default:true},
-		labelImg1:{type:"array", default:[]},
-		labelImg2:{type:"array", default:[]},
-		labelImg3:{type:"array", default:[]},
-		labelImg4:{type:"array", default:[]},
-		labelImg5:{type:"array", default:[]},
-		createModel:{type:'boolean',default:false},
-		trainButtonDis:{type:'boolean',default:true},
-		trainData:{type:"array",default:[]},
-		minProbabilty :{type:'number',default:70 },
-	},
+	
 
 	/**
 	 * @see ./edit.js

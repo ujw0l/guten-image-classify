@@ -5,7 +5,7 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
 
     async function app(el) {
 
-
+        const ctcIcParams = JSON.parse(el.getAttribute('data-info'));
         const trainData = JSON.parse(el.getAttribute('data-train-images'));
         const allow = el.getAttribute('data-allow');
         const resultCont = el.querySelector('.loading-result');
@@ -23,9 +23,6 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
      * Function to upload image to server
      */
       function ajaxUploadImg(img,ext){
-
-
-
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", ctcIcParams.ajaxUrl, true);
         xhttp.responseType = "text";

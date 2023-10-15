@@ -18,7 +18,7 @@ import { useBlockProps } from '@wordpress/block-editor';
 export default function save({attributes}) {
 	return (
 		<div {...useBlockProps.save()}>
-			<div className="image-classify-cont" data-conf={parseInt(attributes.minProbabilty)/100} data-train-images={JSON.stringify(attributes.trainData)} data-allow={attributes.allowImage? 'allow':'noAllow' } >
+			<div className="image-classify-cont" data-info={attributes.ctcIcParam} data-conf={parseInt(attributes.minProbabilty)/100} data-train-images={JSON.stringify(attributes.trainData)} data-allow={attributes.allowImage? 'allow':'noAllow' } >
 
 			<div><span>{__("Select Image: ", 'image-classify')}</span><span><input className="select-img" type="file" accept='image/*' /></span><span className="loading-result"></span></div>
 			</div>

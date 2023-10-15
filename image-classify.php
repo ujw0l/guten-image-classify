@@ -32,30 +32,13 @@
 	*/
    public function requiredWpAction(){
 	add_action( 'init', array($this,'create_block_image_classify_block_init') );
-	add_action( 'wp_enqueue_scripts', array($this,'enequeFrontendJs' ));
 	add_action('wp_ajax_uploadImage',array($this,'uploadImage'));
 	add_action('wp_ajax_nopriv_uploadImage', array($this ,'uploadImage'));
 
    }
 
 
-   /**
-	* 
-	*
-    */
 
-	public function enequeFrontendJs(){
-
-		wp_enqueue_script('ctcIcFrontendJs', CTCIC_DIR_PATH.'build/frontend.js',array());
-		wp_localize_script('ctcIcFrontendJs','ctcIcParams',array(
-			'invalidImage'=>__('This kind of image is not allowed.','image-classify'),
-			'validImage'=>__('Image allowed. Would you like to upload it?.','image-classify'),
-			'modelLoading'=>__('Loading ....','image-classify'),
-			'modelLoaded'=>__('Done.','image-classify'),
-			'ajaxUrl'=> admin_url( 'admin-ajax.php' ),
-		));
-
-	}
 
 
 
@@ -113,11 +96,28 @@
 
 
 public  function create_block_image_classify_block_init() {
+
+	$params = array(
+		'invalidImage'=>__('This kind of image is not allowed.','image-classify'),
+		'validImage'=>__('Image allowed. Would you like to upload it?.','image-classify'),
+		'modelLoading'=>__('Loading ....','image-classify'),
+		'modelLoaded'=>__('Done.','image-classify'),
+		'ajaxUrl'=> admin_url( 'admin-ajax.php' ),
+	);
+
 	register_block_type( __DIR__ . '/build' , 
-    array('attributes' => array(
-		
-
-
+    array('attributes' => array( 
+		"ctcIcParam"=> ["type"=>'string', "default"=>json_encode($params)],
+		"allowImage"=>["type"=>'boolean', "default"=>true],
+		"labelImg1"=>["type"=>"array", "default"=>[]],
+		"labelImg2"=>["type"=>"array", "default"=>[]],
+		"labelImg3"=>["type"=>"array", "default"=>[]],
+		"labelImg4"=>["type"=>"array", "default"=>[]],
+		"labelImg5"=>["type"=>"array", "default"=>[]],
+		"createModel"=>["type"=>'boolean',"default"=>false],
+		"trainButtonDis"=>["type"=>'boolean',"default"=>true],
+		"trainData"=>["type"=>"array","default"=>[]],
+		"minProbabilty"=> ["type"=>'number',"default"=>70 ],
 ),)
 );
 }
