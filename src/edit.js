@@ -1,9 +1,8 @@
 import {useEffect, useRef} from 'react';
-import {  Button, ToggleControl, 
+import {  Button, ToggleControl, RangeControl,
 	Card,
     CardHeader,
     CardBody,
-	CardDivider,
     CardFooter,} from '@wordpress/components';
 
 	import * as tf from '@tensorflow/tfjs';
@@ -89,7 +88,7 @@ async function app() {
 
 		  resultRef.current.innerText = `
 		  Prediction: Class ${parseInt(result.label)+1},
-		  Probability: ${result.confidences[result.label]}`;
+		  Probability: ${100*result.confidences[result.label]}%`;
 		
 	}
   
@@ -101,7 +100,7 @@ async function app() {
 	  img.src =  y;
 	  img.addEventListener('load',e=> addExample(e.target,i));
 	  if(i == attributes.trainData.length-1 && z == x.length-1){
-		resultRef.current.textContent = __("   Done training model",'image-classify');
+		resultRef.current.textContent = __("  Done training model",'image-classify');
 	  }
 	}))
   
@@ -138,7 +137,7 @@ async function app() {
 
 <>
 <Card>
-<CardHeader>{__("Select Images to Train",'image-classify')}</CardHeader>
+<CardHeader>{__("Select Images to Train (Select different images of same object) ",'image-classify')}</CardHeader>
 <CardBody>
 			<div>
 
@@ -238,14 +237,14 @@ async function app() {
 				</span>	
 </div>
 </CardBody>
-<CardBody >
+<CardFooter >
 	
 		<div>
 				<span><Button variant='primary'   onClick={()=> setAttributes({createModel:true})} >{__("Train", "image-classify")}</Button></span><span ref={resultRef}> </span>
 		</div>
-</CardBody>
+</CardFooter>
 
-<CardBody>
+<CardFooter>
 
 <ToggleControl
 
@@ -255,7 +254,18 @@ label={  attributes.allowImage ? __("Allow Similar Image.", "image-classify"):__
 
 />
 
-</CardBody>
+<RangeControl
+				
+				label={__("Minimum probaility score required","image-classify")}
+				min = {0}
+				max = {100}
+				value =  {attributes.minProbabilty}
+				onChange={val=>setAttributes({minProbabilty:val})}
+				resetFallbackValue={70}	
+						
+				/>
+
+</CardFooter>
 	<CardFooter>
 	<div><span> {__("Select Image to test")} </span> <span><input ref={fileRef} type='file' accept='img/*' /></span> </div>	
    </CardFooter>		

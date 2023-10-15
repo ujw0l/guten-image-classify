@@ -8,10 +8,9 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
 
         const trainData = JSON.parse(el.getAttribute('data-train-images'));
         const allow = el.getAttribute('data-allow');
-        const resultCont = el.querySelector('.test-result');
-        const uploadBtn = el.querySelector('.upload-btn button');
+        const resultCont = el.querySelector('.loading-result');
         const imgBtn =  el.querySelector('.select-img');
-
+        const minConfScore = parseFloat(el.getAttribute('data-conf'))
         imgBtn.disabled = true;
 
         resultCont.textContent = ctcIcParams.modelLoading;
@@ -39,17 +38,9 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
             } else {
                 alert(event.target.response);
             }
-
         })
         xhttp.send("action=uploadImage&blob="+img+"&ext="+ext);
-
-
-
-
       }
-
-       
-
         /**
          * 
          * function to train  model to classify  images thorugh transfer learning
@@ -77,36 +68,26 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
             const activation = net.infer(img, true); //feature extraction using mobile net
             const result = await classifier.predictClass(activation); //classify the image 
       
-            let confidence =  result.confidences[result.label]
-
             
            if(allow == 'allow'){
-
-            if(result.confidences[result.label] > 0.7){
-                resultCont.textContent = ctcIcParams.validImage
-                uploadBtn.disabled = false;
-                uploadBtn.setAttribute('data-blob',imgEl.src)
-                uploadBtn.setAttribute('data-ext',ext)
-            
-
+            if(result.confidences[result.label] >= minConfScore){
+                if(confirm( ctcIcParams.validImage)){
+                  ajaxUploadImg(imgEl.src,ext)
+                }
+          
             }else{
-
-                resultCont.textContent = ctcIcParams.invalidImage
-                uploadBtn.disabled = true;
+              alert( ctcIcParams.invalidImage);
             }
 
            }else{
 
-            if(result.confidences[result.label] < 0.7){
-                resultCont.textContent = ctcIcParams.validImage
-                uploadBtn.disabled = false;
-                uploadBtn.setAttribute('data-blob',imgEl.src)
-                uploadBtn.setAttribute('data-ext',ext)
-
+            if(result.confidences[result.label] <= minConfScore){
+              if(confirm( ctcIcParams.validImage)){
+                ajaxUploadImg(imgEl.src,ext)
+              }
             }else{
-
-                resultCont.textContent = ctcIcParams.invalidImage
-                uploadBtn.disabled = true;
+               alert( ctcIcParams.invalidImage);
+              
             }
 
         }
@@ -115,8 +96,6 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
         }
 
 
-        uploadBtn.addEventListener('click',e=> ajaxUploadImg(e.target.getAttribute('data-blob'),e.target.getAttribute('data-ext')) )
-      
       /**
        * Train image for each train data
        */

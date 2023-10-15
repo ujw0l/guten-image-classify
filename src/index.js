@@ -38,7 +38,8 @@ registerBlockType(metadata.name, {
 		labelImg5:{type:"array", default:[]},
 		createModel:{type:'boolean',default:false},
 		trainButtonDis:{type:'boolean',default:true},
-		trainData:{type:"array",default:[]}
+		trainData:{type:"array",default:[]},
+		minProbabilty :{type:'number',default:70 },
 	},
 
 	/**

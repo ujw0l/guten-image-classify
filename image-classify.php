@@ -49,7 +49,7 @@
 		wp_enqueue_script('ctcIcFrontendJs', CTCIC_DIR_PATH.'build/frontend.js',array());
 		wp_localize_script('ctcIcFrontendJs','ctcIcParams',array(
 			'invalidImage'=>__('This kind of image is not allowed.','image-classify'),
-			'validImage'=>__('Image allowed to upload.','image-classify'),
+			'validImage'=>__('Image allowed. Would you like to upload it?.','image-classify'),
 			'modelLoading'=>__('Loading ....','image-classify'),
 			'modelLoaded'=>__('Done.','image-classify'),
 			'ajaxUrl'=> admin_url( 'admin-ajax.php' ),
