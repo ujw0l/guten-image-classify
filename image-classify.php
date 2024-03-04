@@ -78,9 +78,9 @@
     $attach_data = wp_generate_attachment_metadata( $attach_id,  $outPutFile);
     
     wp_update_attachment_metadata( $attach_id, $attach_data );
-    echo __('Image sucessfully uploaded','wp-js-crop');
+    echo esc_html(__('Image sucessfully uploaded','image-classify'));
     else:
-        echo __('Image could not be uploaded','wp-js-crop');
+        echo esc_html(__('Image could not be uploaded','image-classify'));
     endif;
 
 		wp_die();
@@ -101,10 +101,10 @@
 public  function create_block_image_classify_block_init() {
 
 	$params = array(
-		'invalidImage'=>__('This kind of image is not allowed.','image-classify'),
-		'validImage'=>__('Image allowed. Would you like to upload it?.','image-classify'),
-		'modelLoading'=>__('Loading ....','image-classify'),
-		'modelLoaded'=>__('Done.','image-classify'),
+		'invalidImage'=>esc_html(__('This kind of image is not allowed.','image-classify')),
+		'validImage'=>esc_html(__('Image allowed. Would you like to upload it?.','image-classify')),
+		'modelLoading'=>esc_html(__('Loading ....','image-classify')),
+		'modelLoaded'=>esc_html(__('Done.','image-classify')),
 		'ajaxUrl'=> admin_url( 'admin-ajax.php' ),
 	);
 

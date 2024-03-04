@@ -13,6 +13,9 @@ Block to classify image.
 This block enables admintrator to allow what kind of image they want user to upload or block user from uploading 
 to the server.
 
+= Integrations =
+* Plugin uses third party model from https://tfhub.dev/google/imagenet/mobilenet_v1_025_224/classification/1
+
 == Installation ==
 
 This section describes how to install the plugin and get it working.
