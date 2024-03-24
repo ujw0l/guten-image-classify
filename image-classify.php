@@ -13,14 +13,16 @@
  * @package           create-block
  */
 
+ namespace ctcImageClassify;
 
  if ( ! defined( 'ABSPATH' ) ) exit; 
+
 
  class ctcImageClassify{
 
 	public function __construct(){
 
-		define('CTCIC_DIR_PATH',plugin_dir_url(__FILE__) );
+		define('CTCIC__DIR__PATH',plugin_dir_url(__FILE__) );
 		SELF::requiredWpAction();
 
 	}
@@ -35,8 +37,8 @@
 	*/
    public function requiredWpAction(){
 	add_action( 'init', array($this,'create_block_image_classify_block_init') );
-	add_action('wp_ajax_uploadImage',array($this,'uploadImage'));
-	add_action('wp_ajax_nopriv_uploadImage', array($this ,'uploadImage'));
+	add_action('wp_ajax_image_classify_uploadImage',array($this,'image_classify_uploadImage'));
+	add_action('wp_ajax_nopriv_image_classify_uploadImage', array($this ,'image_classify_uploadImage'));
 
    }
 
@@ -49,11 +51,12 @@
 	 * Upload image with AJAX
 	 */
 
-	 public function uploadImage(){
+	 public function image_classify_uploadImage(){
 
 
 
-		$ext =  'jpg'== $_POST['ext'] ? 'jpeg' : $_POST['ext'];
+
+		$ext =  'jpg'== $_POST['ext'] ? 'jpeg' : sanitize_text_field( $_POST['ext']);
 
 		$fileName = time().'.'.$ext;
         $outPutFile = wp_upload_dir()['path'].'/'. $fileName;

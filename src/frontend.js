@@ -36,7 +36,7 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
                 alert(event.target.response);
             }
         })
-        xhttp.send("action=uploadImage&blob="+img+"&ext="+ext);
+        xhttp.send("action=image_classify_uploadImage&blob="+img+"&ext="+ext);
       }
         /**
          * 
