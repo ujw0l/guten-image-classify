@@ -53,8 +53,7 @@
 
 	 public function image_classify_uploadImage(){
 
-
-
+	
 
 		$ext =  'jpg'== $_POST['ext'] ? 'jpeg' : sanitize_text_field( $_POST['ext']);
 
