@@ -1,8 +1,8 @@
 === Image Classify ===
 Contributors:      UjW0L
-Tags:              block, deep-learning, transfer-learning, tensorflowjs
-Tested up to:      6.4.2
-Stable tag:        0.1.0
+Tags:              block, deep learning, transfer learning, tensorflowjs
+Tested up to:      6.5
+Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,4 +44,6 @@ It is minimum confidence score for image to belong to one of the classes
 = 0.1.0 =
 * Release
 
+= 1.0.0 =
+* Nonce verification
 
