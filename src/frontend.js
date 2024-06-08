@@ -18,11 +18,13 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
         const classifier = knnClassifier.create();
         const net = await mobilenet.load();
 
-       
     /**
      * Function to upload image to server
      */
       function ajaxUploadImg(img,ext){
+
+        let nonce =  document.querySelector(".image-classify-cont").getAttribute("data-nonce")
+
         var xhttp = new XMLHttpRequest();
         xhttp.open("POST", ctcIcParams.ajaxUrl, true);
         xhttp.responseType = "text";
@@ -36,7 +38,7 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
                 alert(event.target.response);
             }
         })
-        xhttp.send("action=image_classify_uploadImage&blob="+img+"&ext="+ext);
+        xhttp.send("action=image_classify_uploadImage&blob="+img+"&ext="+ext+"&nonce="+nonce);
       }
         /**
          * 
@@ -60,7 +62,7 @@ import * as knnClassifier from '@tensorflow-models/knn-classifier';
          */
        const runPredictions =  async (imgEl,ext)=> {
       
-         
+        
             const img = tf.browser.fromPixels(imgEl); //convert image to tensor
             const activation = net.infer(img, true); //feature extraction using mobile net
             const result = await classifier.predictClass(activation); //classify the image 

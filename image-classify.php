@@ -4,7 +4,7 @@
  * Description:       Block to classify image and allow or block upload.
  * Requires at least: 6.4.2
  * Requires PHP:      7.0
- * Version:           0.1.0
+ * Version:           1.0.0
  * Author:            UjW0L
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
@@ -53,7 +53,7 @@
 
 	 public function image_classify_uploadImage(){
 
-	
+		check_ajax_referer( 'my_ajax_nonce', 'nonce' );
 
 		$ext =  'jpg'== $_POST['ext'] ? 'jpeg' : sanitize_text_field( $_POST['ext']);
 
@@ -89,6 +89,30 @@
 	 }
 	
 
+	 /**
+	  * Since 0.1.0
+	  * @param $atts atrributes
+	  * @param $content
+	  *
+	  */
+
+	  public function renderCallBack($atts, $content){
+
+		$allow =  $atts["allowImage"] ? 'allow':'noAllow';
+
+		$nonce = wp_create_nonce( 'my_ajax_nonce' );
+
+		ob_start();
+?>
+		<div></div>
+		<div class="image-classify-cont" data-nonce= "<?php echo($nonce); ?>" data-info='<?php echo ($atts['ctcIcParam']);?>' data-conf="<?php echo($atts["minProbabilty"]/100);?>"  data-train-images='<?php echo json_encode($atts["trainData"])?>' data-allow="<?php echo($allow);?>" >
+
+		<div><span><?php echo __("Select Image: ", 'image-classify')?></span><span><input class="select-img" type="file" accept='image/*' /></span><span class="loading-result"></span></div>
+		</div>
+<?php
+ return ob_get_clean();
+	  }
+
 /**
  * Registers the block using the metadata loaded from the `block.json` file.
  * Behind the scenes, it registers also all assets so they can be enqueued
@@ -123,10 +147,12 @@ public  function create_block_image_classify_block_init() {
 		"trainButtonDis"=>["type"=>'boolean',"default"=>true],
 		"trainData"=>["type"=>"array","default"=>[]],
 		"minProbabilty"=> ["type"=>'number',"default"=>70 ],
-),)
+),
+"render_callback"=> array($this, 'renderCallBack') ,
+)
 );
-}
- }
 
+ }
+ }
 new ctcImageClassify();
 
