@@ -105,9 +105,9 @@
 		ob_start();
 ?>
 		<div></div>
-		<div class="image-classify-cont" data-nonce= "<?php echo($nonce); ?>" data-info='<?php echo ($atts['ctcIcParam']);?>' data-conf="<?php echo($atts["minProbabilty"]/100);?>"  data-train-images='<?php echo json_encode($atts["trainData"])?>' data-allow="<?php echo($allow);?>" >
+		<div class="image-classify-cont" data-nonce= "<?php echo (esc_attr(($nonce))); ?>" data-info='<?php echo (esc_attr(($atts['ctcIcParam'])));?>' data-conf="<?php echo (esc_attr( ($atts["minProbabilty"]/100)));?>"  data-train-images='<?php echo (esc_attr(wp_json_encode(($atts["trainData"]))))?>' data-allow="<?php echo(esc_attr($allow));?>" >
 
-		<div><span><?php echo __("Select Image: ", 'image-classify')?></span><span><input class="select-img" type="file" accept='image/*' /></span><span class="loading-result"></span></div>
+		<div><span><?php echo (esc_html(__("Select Image: ", 'image-classify')))?></span><span><input class="select-img" type="file" accept='image/*' /></span><span class="loading-result"></span></div>
 		</div>
 <?php
  return ob_get_clean();
