@@ -14,7 +14,8 @@ This block enables admintrator to allow what kind of image they want user to upl
 to the server.
 
 = Integrations =
-* Plugin uses third party model from https://tfhub.dev/google/imagenet/mobilenet_v1_025_224/classification/1
+
+* Plugin uses third party model from (no data is sent out of users's device , it only loads model) https://tfhub.dev/google/imagenet/mobilenet_v1_025_224/classification/1
 
 == Installation ==
 
